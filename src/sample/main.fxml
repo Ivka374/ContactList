@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -25,8 +26,14 @@
          <children>
             <ToolBar prefHeight="88.0" prefWidth="600.0" GridPane.columnSpan="2147483647">
               <items>
-                <Button mnemonicParsing="false" text="New" />
+                <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="64.0" text="New" />
               </items>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </ToolBar>
             <ListView fx:id="names" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
             <ListView fx:id="number" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
