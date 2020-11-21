@@ -12,11 +12,12 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <GridPane prefHeight="405.0" prefWidth="600.0">
+      <GridPane prefHeight="405.0" prefWidth="600.0" GridPane.hgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="195.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="150.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
@@ -35,9 +36,10 @@
                   <Insets />
                </GridPane.margin>
             </ToolBar>
-            <ListView fx:id="names" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
-            <ListView fx:id="number" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
-            <ListView fx:id="notes" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+            <ListView maxWidth="150.0" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+            <ListView fx:id="names" maxWidth="150.0" prefHeight="330.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+            <ListView fx:id="number" maxWidth="150.0" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+            <ListView fx:id="notes" minWidth="150.0" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
          </children>
       </GridPane>
    </children>

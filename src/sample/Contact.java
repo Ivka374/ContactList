@@ -3,14 +3,14 @@ package sample;
 public class Contact {
     private String firstName;
     private String lastName;
-    private String number;
-    private String description;
+    private String phoneNumber;
+    private String notes;
 
     public Contact(String firstName, String lastName, String number, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.number = number;
-        this.description = description;
+        this.phoneNumber = number;
+        this.notes = description;
     }
 
     public String getFirstName() {
@@ -29,19 +29,19 @@ public class Contact {
         this.lastName = lastName;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getDescription() {
-        return description;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
