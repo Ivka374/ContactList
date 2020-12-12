@@ -1,4 +1,4 @@
-package sample;
+package sample.datamodel;
 
 public class Contact {
     private String firstName;
@@ -12,6 +12,8 @@ public class Contact {
         this.phoneNumber = number;
         this.notes = description;
     }
+
+    /*public Contact(){}*/
 
     public String getFirstName() {
         return firstName;

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -49,6 +50,16 @@
          <GridPane.margin>
             <Insets left="15.0" right="10.0" />
          </GridPane.margin></Button>
+      <Button mnemonicParsing="false" text="Change Picture" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets left="25.0" />
+         </GridPane.margin>
+      </Button>
+      <ImageView fitHeight="81.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="25.0" />
+         </GridPane.margin>
+      </ImageView>
    </children>
    <padding>
       <Insets bottom="20.0" left="15.0" right="30.0" top="20.0" />
