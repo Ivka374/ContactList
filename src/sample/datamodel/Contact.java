@@ -5,12 +5,14 @@ public class Contact {
     private String lastName;
     private String phoneNumber;
     private String notes;
+    private boolean favourite;
 
     public Contact(String firstName, String lastName, String number, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = number;
         this.notes = description;
+        favourite = false;
     }
 
     /*public Contact(){}*/
@@ -45,5 +47,13 @@ public class Contact {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
     }
 }

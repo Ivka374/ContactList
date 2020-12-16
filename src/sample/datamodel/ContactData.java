@@ -31,6 +31,8 @@ public class ContactData {
     private static final String PHONE_NUMBER = "phone_number";
     private static final String NOTES = "notes";
 
+    private static ContactData instance = new ContactData();
+
     private ObservableList<Contact> contacts;
 
     public ContactData() {
@@ -49,6 +51,10 @@ public class ContactData {
 
     public ObservableList<Contact> getContacts() {
         return contacts;
+    }
+
+    public static ContactData getInstance() {
+        return instance;
     }
 
     public void loadContacts() {
