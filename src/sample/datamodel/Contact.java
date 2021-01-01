@@ -15,7 +15,7 @@ public class Contact {
         favourite = false;
     }
 
-    /*public Contact(){}*/
+    public Contact(){}    //not sure if I should keep it like this...
 
     public String getFirstName() {
         return firstName;

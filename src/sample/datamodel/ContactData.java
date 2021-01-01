@@ -74,7 +74,7 @@ public class ContactData {
                     StartElement startElement = event.asStartElement();
                     // If we have a contact item, we create a new contact
                     if (startElement.getName().getLocalPart().equals(CONTACT)) {
-                        contact = new Contact(FIRST_NAME, LAST_NAME, PHONE_NUMBER, NOTES);
+                        contact = new Contact();
                         continue;
                     }
 
@@ -202,6 +202,10 @@ public class ContactData {
         EndElement eElement = eventFactory.createEndElement("", "", name);
         eventWriter.add(eElement);
         eventWriter.add(end);
+    }
+
+    public void storeItems(){
+
     }
 
 }

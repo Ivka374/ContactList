@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class Controller {
+public class MainWindowController {
 
     private List<Contact> contactList;
 
@@ -102,6 +102,7 @@ public class Controller {
         firstNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         firstNameListView.getSelectionModel().selectFirst();
 
+        //should find a way to avoid the repetition
         firstNameListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
             @Override
             public ListCell<Contact> call(ListView<Contact> contactListView) {
@@ -130,6 +131,7 @@ public class Controller {
                 return cell;
             }
         });
+        //should find a way to avoid the repetition
         lastNameListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
             @Override
             public ListCell<Contact> call(ListView<Contact> contactListView) {
@@ -158,6 +160,7 @@ public class Controller {
                 return cell;
             }
         });
+        //should find a way to avoid the repetition
         numberListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
             @Override
             public ListCell<Contact> call(ListView<Contact> contactListView) {
@@ -186,6 +189,7 @@ public class Controller {
                 return cell;
             }
         });
+        //should find a way to avoid the repetition
         notesListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
             @Override
             public ListCell<Contact> call(ListView<Contact> contactListView) {
