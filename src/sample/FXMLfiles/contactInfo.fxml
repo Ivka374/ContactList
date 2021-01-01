@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ContactInfoController">
    <children>
-      <ImageView fitHeight="254.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="contactImageView" fitHeight="254.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="name" text="Name">
          <font>
             <Font size="20.0" />
@@ -27,7 +27,7 @@
       </Label>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" text="Edit">
+            <Button fx:id="editButton" mnemonicParsing="false" text="Edit">
                <font>
                   <Font size="15.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Insets left="30.0" right="15.0" top="30.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Call">
+            <Button fx:id="callButton" mnemonicParsing="false" text="Call">
                <font>
                   <Font size="15.0" />
                </font>
@@ -43,7 +43,7 @@
                   <Insets left="15.0" right="15.0" top="30.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Close">
+            <Button fx:id="closeButton" mnemonicParsing="false" text="Close">
                <HBox.margin>
                   <Insets left="15.0" right="15.0" top="30.0" />
                </HBox.margin>

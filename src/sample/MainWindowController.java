@@ -8,6 +8,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -16,6 +17,7 @@ import javafx.util.Callback;
 import sample.datamodel.Contact;
 import sample.datamodel.ContactData;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,9 @@ public class MainWindowController {
 
     @FXML
     private ContextMenu listContextMenu;
+
+    @FXML
+    private ToolBar mainToolBar;
 
     private FilteredList<Contact> filteredList;
     private Predicate<Contact> all;
@@ -256,6 +261,34 @@ public class MainWindowController {
             filteredList.setPredicate(favourites);
         }else {
             filteredList.setPredicate(all);
+        }
+    }
+
+    @FXML
+    public void showNewItemDialog(){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainToolBar.getScene().getWindow());
+        dialog.setTitle("Add New Contact");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("newContactDialog.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+
+        }catch (IOException e) {
+            System.out.println("Could not load the dialog");
+            e.printStackTrace();
+            return;
+        }
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK){
+            NewContactDialogController controller = fxmlLoader.getController();
+            Contact newContact = controller.handleFinishingCreation();
+            firstNameListView.setItems(ContactData.getInstance().getContacts());
+            firstNameListView.getSelectionModel().select(newContact);
         }
     }
 

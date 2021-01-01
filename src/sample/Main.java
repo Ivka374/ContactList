@@ -23,12 +23,13 @@ public class Main extends Application {
         launch(args);
     }
 
-    /*@Override
-    public void stop() throws Exception{
-        try{
-            ContactData.getInstance().storeItems();
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-    }*/
+    @Override
+    public void stop(){
+        ContactData.getInstance().saveContacts();
+    }
+
+    @Override
+    public void init(){
+        ContactData.getInstance().loadContacts();
+    }
 }

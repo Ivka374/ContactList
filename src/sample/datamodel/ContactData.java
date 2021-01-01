@@ -78,14 +78,13 @@ public class ContactData {
                         continue;
                     }
 
-                    if (event.isStartElement()) {
-                        if (event.asStartElement().getName().getLocalPart()
-                                .equals(FIRST_NAME)) {
-                            event = eventReader.nextEvent();
-                            contact.setFirstName(event.asCharacters().getData());
-                            continue;
-                        }
+                    if (event.asStartElement().getName().getLocalPart()
+                            .equals(FIRST_NAME)) {
+                        event = eventReader.nextEvent();
+                        contact.setFirstName(event.asCharacters().getData());
+                        continue;
                     }
+
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(LAST_NAME)) {
                         event = eventReader.nextEvent();
@@ -204,8 +203,5 @@ public class ContactData {
         eventWriter.add(end);
     }
 
-    public void storeItems(){
-
-    }
 
 }

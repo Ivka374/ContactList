@@ -7,9 +7,10 @@ public class Contact {
     private String notes;
     private boolean favourite;
 
-    public Contact(String firstName, String lastName, String number, String description) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Contact(String name, String number, String description) {
+        String[] names = name.split(" ");
+        firstName = names[0];
+        lastName = names[1];
         this.phoneNumber = number;
         this.notes = description;
         favourite = false;

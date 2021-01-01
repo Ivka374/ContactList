@@ -25,9 +25,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ToolBar prefHeight="88.0" prefWidth="600.0" GridPane.columnSpan="2147483647">
+            <ToolBar fx:id="mainToolBar" prefHeight="88.0" prefWidth="600.0" GridPane.columnSpan="2147483647">
               <items>
-                <Button fx:id="newContactButton" mnemonicParsing="false" prefHeight="28.0" prefWidth="112.0" text="New Contact" />
+                <Button fx:id="newContactButton" mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="28.0" prefWidth="112.0" text="New Contact" />
                   <ToggleButton fx:id="favouritesButton" mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="28.0" prefWidth="100.0" text="Favourites" textAlignment="CENTER">
                      <opaqueInsets>
                         <Insets />
