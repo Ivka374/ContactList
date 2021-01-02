@@ -41,9 +41,6 @@ public class MainWindowController {
     private ListView<Contact> notesListView;
 
     @FXML
-    private Button newContactButton;
-
-    @FXML
     private ToggleButton favouritesButton;
 
     @FXML
@@ -106,13 +103,7 @@ public class MainWindowController {
         numberListView.setItems(sortedList);
         notesListView.setItems(sortedList);
         firstNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        lastNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        numberListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        notesListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         firstNameListView.getSelectionModel().selectFirst();
-        lastNameListView.getSelectionModel().selectFirst();
-        numberListView.getSelectionModel().selectFirst();
-        notesListView.getSelectionModel().selectFirst();
 
         //should find a way to avoid the repetition
         firstNameListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
@@ -127,7 +118,9 @@ public class MainWindowController {
                         }else {
                             setText(contact.getFirstName());
                             if (contact.isFavourite()){
-                                setTextFill(Color.YELLOW);
+                                setTextFill(Color.DARKGOLDENROD);
+                            }else {
+                                setTextFill(Color.BLACK);
                             }
                         }
                     }
@@ -156,7 +149,9 @@ public class MainWindowController {
                         }else {
                             setText(contact.getLastName());
                             if (contact.isFavourite()){
-                                setTextFill(Color.YELLOW);
+                                setTextFill(Color.DARKGOLDENROD);
+                            }else {
+                                setTextFill(Color.BLACK);
                             }
                         }
                     }
@@ -185,7 +180,9 @@ public class MainWindowController {
                         }else {
                             setText(contact.getPhoneNumber());
                             if (contact.isFavourite()){
-                                setTextFill(Color.YELLOW);
+                                setTextFill(Color.DARKGOLDENROD);
+                            }else {
+                                setTextFill(Color.BLACK);
                             }
                         }
                     }
@@ -214,7 +211,9 @@ public class MainWindowController {
                         }else {
                             setText(contact.getNotes());
                             if (contact.isFavourite()){
-                                setTextFill(Color.YELLOW);
+                                setTextFill(Color.DARKGOLDENROD);
+                            }else {
+                                setTextFill(Color.BLACK);
                             }
                         }
                     }
@@ -276,9 +275,8 @@ public class MainWindowController {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainToolBar.getScene().getWindow());
         dialog.setTitle("Add New Contact");
-        dialog.setHeaderText("Fill in the properties of the new contact here!");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("newContactDialog.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
@@ -303,11 +301,6 @@ public class MainWindowController {
                 firstNameListView.getSelectionModel().select(newContact);
             }
         }
-    }
-
-    @FXML
-    public void handleExit(){
-        Platform.exit();
     }
 
 }

@@ -2,7 +2,6 @@ package sample.datamodel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.converter.PaintConverter;
 import javafx.scene.image.Image;
 
 import javax.xml.stream.XMLEventFactory;
@@ -16,10 +15,7 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 
 
 public class ContactData {
@@ -109,7 +105,6 @@ public class ContactData {
                         continue;
                     }
 
-                    //find a way to save & read whether a contact is from the favourites
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(FAVOURITES)) {
                         event = eventReader.nextEvent();
@@ -117,11 +112,11 @@ public class ContactData {
                         continue;
                     }
 
-                    //find a way to save & read whether a contact has an image and if so what the image is
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(CONTACT_IMAGE)) {
                         event = eventReader.nextEvent();
-                        Image image = new Image(event.asCharacters().getData());
+                        File file = new File(event.asCharacters().getData());
+                        Image image = new Image(file.toURI().toString());
                         contact.setContactImage(image);
                         continue;
                     }
@@ -201,8 +196,14 @@ public class ContactData {
         createNode(eventWriter, NOTES, contact.getNotes());
         createNode(eventWriter, FAVOURITES, contact.isFavourite() ? "true" : "false");
 
-        //find a way to make the image work      P.S. Maybe save them in a separate resource folder
-        createNode(eventWriter, CONTACT_IMAGE, PaintConverter.ImagePatternConverter.getInstance().toString());
+        try {
+            if (contact.getContactImage() != null) {
+                File image = File.createTempFile("image-", "-clpj", new File(System.getProperty("user.dir") + "\\src\\images"));
+                createNode(eventWriter, CONTACT_IMAGE, image.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         eventWriter.add(eventFactory.createEndElement("", "", CONTACT));
         eventWriter.add(end);

@@ -39,10 +39,10 @@ public class NewContactDialogController {
             return newContact;
 
         } else {
-            Alert blankSpaces = new Alert(Alert.AlertType.ERROR);
+            Alert blankSpaces = new Alert(Alert.AlertType.WARNING);
             blankSpaces.setTitle("Incomplete Contact Properties");
             blankSpaces.setHeaderText("Please fill in the areas fo name, number and notes!");
-            blankSpaces.showAndWait();
+            blankSpaces.show();
 
             return null;
         }
@@ -58,6 +58,8 @@ public class NewContactDialogController {
         File file = fileChooser.showOpenDialog(null);
         if (file != null){
             Image contactImage = new Image(file.toURI().toString());
+            contactImagePreview.setFitHeight(80);
+            contactImagePreview.setFitWidth(80);
             contactImagePreview.setImage(contactImage);
         }
     }
