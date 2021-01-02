@@ -2,7 +2,8 @@ package sample.datamodel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.datamodel.Contact;
+import javafx.css.converter.PaintConverter;
+import javafx.scene.image.Image;
 
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
@@ -30,6 +31,8 @@ public class ContactData {
     private static final String LAST_NAME = "last_name";
     private static final String PHONE_NUMBER = "phone_number";
     private static final String NOTES = "notes";
+    private static final String FAVOURITES = "is_favourite";
+    private static final String CONTACT_IMAGE = "image";
 
     private static ContactData instance = new ContactData();
 
@@ -103,6 +106,23 @@ public class ContactData {
                             .equals(NOTES)) {
                         event = eventReader.nextEvent();
                         contact.setNotes(event.asCharacters().getData());
+                        continue;
+                    }
+
+                    //find a way to save & read whether a contact is from the favourites
+                    if (event.asStartElement().getName().getLocalPart()
+                            .equals(FAVOURITES)) {
+                        event = eventReader.nextEvent();
+                        contact.setFavourite(event.asCharacters().getData().equals("true"));
+                        continue;
+                    }
+
+                    //find a way to save & read whether a contact has an image and if so what the image is
+                    if (event.asStartElement().getName().getLocalPart()
+                            .equals(CONTACT_IMAGE)) {
+                        event = eventReader.nextEvent();
+                        Image image = new Image(event.asCharacters().getData());
+                        contact.setContactImage(image);
                         continue;
                     }
                 }
@@ -179,6 +199,10 @@ public class ContactData {
         createNode(eventWriter, LAST_NAME, contact.getLastName());
         createNode(eventWriter, PHONE_NUMBER, contact.getPhoneNumber());
         createNode(eventWriter, NOTES, contact.getNotes());
+        createNode(eventWriter, FAVOURITES, contact.isFavourite() ? "true" : "false");
+
+        //find a way to make the image work      P.S. Maybe save them in a separate resource folder
+        createNode(eventWriter, CONTACT_IMAGE, PaintConverter.ImagePatternConverter.getInstance().toString());
 
         eventWriter.add(eventFactory.createEndElement("", "", CONTACT));
         eventWriter.add(end);

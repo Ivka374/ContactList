@@ -1,11 +1,14 @@
 package sample.datamodel;
 
+import javafx.scene.image.Image;
+
 public class Contact {
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String notes;
     private boolean favourite;
+    private Image contactImage;
 
     public Contact(String name, String number, String description) {
         String[] names = name.split(" ");
@@ -14,9 +17,11 @@ public class Contact {
         this.phoneNumber = number;
         this.notes = description;
         favourite = false;
+        contactImage = null;
     }
 
-    public Contact(){}    //not sure if I should keep it like this...
+    public Contact() {
+    }    //not sure if I should keep it like this...
 
     public String getFirstName() {
         return firstName;
@@ -56,5 +61,13 @@ public class Contact {
 
     public void setFavourite(boolean favourite) {
         this.favourite = favourite;
+    }
+
+    public Image getContactImage() {
+        return contactImage;
+    }
+
+    public void setContactImage(Image contactImage) {
+        this.contactImage = contactImage;
     }
 }

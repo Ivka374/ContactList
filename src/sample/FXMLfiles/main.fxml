@@ -40,10 +40,10 @@
                   <Insets />
                </GridPane.margin>
             </ToolBar>
-            <ListView fx:id="firstNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-            <ListView fx:id="lastNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
-            <ListView fx:id="numberListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
-            <ListView fx:id="notesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+            <ListView fx:id="firstNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.rowIndex="1" GridPane.rowSpan="2" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
+            <ListView fx:id="lastNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
+            <ListView fx:id="numberListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
+            <ListView fx:id="notesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
          </children>
       </GridPane>
    </children>

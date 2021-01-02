@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -105,7 +106,13 @@ public class MainWindowController {
         numberListView.setItems(sortedList);
         notesListView.setItems(sortedList);
         firstNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        lastNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        numberListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        notesListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         firstNameListView.getSelectionModel().selectFirst();
+        lastNameListView.getSelectionModel().selectFirst();
+        numberListView.getSelectionModel().selectFirst();
+        notesListView.getSelectionModel().selectFirst();
 
         //should find a way to avoid the repetition
         firstNameListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
@@ -147,7 +154,7 @@ public class MainWindowController {
                         if (empty){
                             setText(null);
                         }else {
-                            setText(contact.getFirstName());
+                            setText(contact.getLastName());
                             if (contact.isFavourite()){
                                 setTextFill(Color.YELLOW);
                             }
@@ -176,7 +183,7 @@ public class MainWindowController {
                         if (empty){
                             setText(null);
                         }else {
-                            setText(contact.getFirstName());
+                            setText(contact.getPhoneNumber());
                             if (contact.isFavourite()){
                                 setTextFill(Color.YELLOW);
                             }
@@ -205,7 +212,7 @@ public class MainWindowController {
                         if (empty){
                             setText(null);
                         }else {
-                            setText(contact.getFirstName());
+                            setText(contact.getNotes());
                             if (contact.isFavourite()){
                                 setTextFill(Color.YELLOW);
                             }
@@ -240,9 +247,9 @@ public class MainWindowController {
     @FXML
     public void handleClickListView(){
         Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-        lastNameListView.setSelectionModel(firstNameListView.getSelectionModel());
-        numberListView.setSelectionModel(firstNameListView.getSelectionModel());
-        notesListView.setSelectionModel(firstNameListView.getSelectionModel());
+        lastNameListView.getSelectionModel().select(item);
+        numberListView.getSelectionModel().select(item);
+        notesListView.getSelectionModel().select(item);
     }
 
     @FXML
@@ -269,6 +276,7 @@ public class MainWindowController {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainToolBar.getScene().getWindow());
         dialog.setTitle("Add New Contact");
+        dialog.setHeaderText("Fill in the properties of the new contact here!");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("newContactDialog.fxml"));
         try {
@@ -287,8 +295,13 @@ public class MainWindowController {
         if(result.isPresent() && result.get() == ButtonType.OK){
             NewContactDialogController controller = fxmlLoader.getController();
             Contact newContact = controller.handleFinishingCreation();
-            firstNameListView.setItems(ContactData.getInstance().getContacts());
-            firstNameListView.getSelectionModel().select(newContact);
+            if (newContact != null) {
+                firstNameListView.setItems(ContactData.getInstance().getContacts());
+                lastNameListView.setItems(ContactData.getInstance().getContacts());
+                numberListView.setItems(ContactData.getInstance().getContacts());
+                notesListView.setItems(ContactData.getInstance().getContacts());
+                firstNameListView.getSelectionModel().select(newContact);
+            }
         }
     }
 
