@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLEventWriter;
@@ -47,7 +48,6 @@ public class ContactData {
 
     public void removeContact(Contact contact){
         if (contact.getContactImage() != null){
-            System.out.println("you got somewhere");
             Path imagesPath = Paths.get(
                     "E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images\\" +
                             contact.getImageFileName());
@@ -65,7 +65,6 @@ public class ContactData {
                }
            }
         }
-        System.out.println("you sure you got somewhere?");
         contacts.remove(contact);
     }
 
@@ -132,8 +131,9 @@ public class ContactData {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(CONTACT_IMAGE)) {
                         event = eventReader.nextEvent();
-                        File file = new File(event.toString());
-                        Image image = new Image(file.toURI().toString());      //something is off here
+                        contact.setImageFileName(event.asCharacters().getData());
+                        File file = new File("E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images" + contact.getImageFileName());
+                        Image image = new Image(file.toURI().toString());
                         contact.setContactImage(image);
                         continue;
                     }
