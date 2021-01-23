@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,6 +9,7 @@ import javafx.stage.FileChooser;
 import sample.datamodel.Contact;
 import sample.datamodel.ContactData;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
@@ -35,8 +37,10 @@ public class NewContactDialogController {
             if (isFavouriteButton.isSelected()) newContact.setFavourite(true);
             if (contactImagePreview != null) newContact.setContactImage(contactImagePreview.getImage());
             try {
-                File image = File.createTempFile("image-", "-clpj", new File(System.getProperty("user.dir") + "\\src\\images"));
+                File image = File.createTempFile("image-", "-clipj.png", new File(System.getProperty("user.dir") + "\\src\\images"));
                 newContact.setImageFileName(image.getName());
+                String format = "PNG";
+                ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format, image);
             } catch (IOException e) {
                 e.printStackTrace();
             }

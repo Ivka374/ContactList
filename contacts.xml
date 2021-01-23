@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contacts>
 <contact>
-	<first_name>egdsgdfsgdgsdg</first_name>
-	<last_name>dssdgsdfgdsgdsg</last_name>
-	<phone_number>643663456346</phone_number>
-	<notes>Notes</notes>
-	<is_favourite>false</is_favourite>
+	<first_name>Kyle</first_name>
+	<last_name>Hill</last_name>
+	<phone_number>315430461</phone_number>
+	<notes>Noted</notes>
+	<is_favourite>true</is_favourite>
+	<image>image-6300605932260056813-clipj.png</image>
 </contact>
 </contacts>
