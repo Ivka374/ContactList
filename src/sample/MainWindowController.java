@@ -4,17 +4,20 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import sample.datamodel.Contact;
 import sample.datamodel.ContactData;
 
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -54,8 +57,14 @@ public class MainWindowController {
             Contact item = firstNameListView.getSelectionModel().getSelectedItem();
             deleteItem(item);
         });
+        MenuItem viewMenuItem = new MenuItem("View");
+        viewMenuItem.setOnAction(actionEvent -> {
+            Contact item = firstNameListView.getSelectionModel().getSelectedItem();
+            viewItem(item);
+        });
 
         listContextMenu.getItems().addAll(deleteMenuItem);
+        listContextMenu.getItems().addAll(viewMenuItem);
         firstNameListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue != null){
                 lastNameListView.setSelectionModel(firstNameListView.getSelectionModel());
@@ -218,6 +227,35 @@ public class MainWindowController {
         if(result.isPresent() && (result.get()==ButtonType.OK)){
             ContactData.getInstance().removeContact(item);
         }
+    }
+
+    public void viewItem(Contact item){
+        /*Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("FXMLfiles/contactInfo.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("FXMLfiles/contactInfo.fxml"));
+            /*
+             * if "fx:controller" is not set in fxml
+             * fxmlLoader.setController(NewWindowController);
+             */
+            Scene scene = new Scene(fxmlLoader.load(), 630, 400);
+            Stage stage = new Stage();
+            stage.setTitle("New Window");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML

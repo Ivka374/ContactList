@@ -35,14 +35,19 @@ public class NewContactDialogController {
             Contact newContact = new Contact(nameInputField.getText(), numberInputField.getText(), descriptionInputField.getText());
             if (nameInputField.getText().matches("\\w+\\s+")) throw new Exception();
             if (isFavouriteButton.isSelected()) newContact.setFavourite(true);
-            if (contactImagePreview != null) newContact.setContactImage(contactImagePreview.getImage());
-            try {
-                File image = File.createTempFile("image-", "-clipj.png", new File(System.getProperty("user.dir") + "\\src\\images"));
-                newContact.setImageFileName(image.getName());
-                String format = "PNG";
-                ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format, image);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (contactImagePreview.getImage() != null){
+
+                newContact.setContactImage(contactImagePreview.getImage());
+
+                try {
+                    File image = File.createTempFile("image-", "-clipj.png", new File(System.getProperty("user.dir") + "\\src\\images"));
+                    newContact.setImageFileName(image.getName());
+                    String format = "PNG";
+                    ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format, image);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             ContactData.getInstance().addContact(newContact);

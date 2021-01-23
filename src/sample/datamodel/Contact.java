@@ -3,6 +3,8 @@ package sample.datamodel;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 public class Contact {
     private String firstName;
     private String lastName;
@@ -19,8 +21,10 @@ public class Contact {
         this.phoneNumber = number;
         this.notes = description;
         favourite = false;
-        contactImage = null;
-        imageFileName = null;
+        File file = new File("E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images\\defaultContactImage.jpg");
+        Image image = new Image(file.toURI().toString());
+        contactImage = image;
+        imageFileName = "defaultContactImage.jpg";
     }
 
     public Contact() {
