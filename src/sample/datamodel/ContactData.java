@@ -16,6 +16,9 @@ import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class ContactData {
@@ -41,7 +44,28 @@ public class ContactData {
     public void addContact(Contact contact){
         contacts.add(contact);
     }
+
     public void removeContact(Contact contact){
+        if (contact.getContactImage() != null){
+            System.out.println("you got somewhere");
+            Path imagesPath = Paths.get(
+                    "E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images\\" +
+                            contact.getImageFileName());
+           if (Files.exists(imagesPath)){
+               try {
+                   Files.delete(imagesPath);
+                   System.out.println("File "
+                           + imagesPath.toAbsolutePath().toString()
+                           + " successfully removed");
+               } catch (IOException e) {
+                   System.err.println("Unable to delete "
+                           + imagesPath.toAbsolutePath().toString()
+                           + " due to...");
+                   e.printStackTrace();
+               }
+           }
+        }
+        System.out.println("you sure you got somewhere?");
         contacts.remove(contact);
     }
 
@@ -109,7 +133,7 @@ public class ContactData {
                             .equals(CONTACT_IMAGE)) {
                         event = eventReader.nextEvent();
                         File file = new File(event.toString());
-                        Image image = new Image(file.toURI().toString());       //how to get both the image and the name out of this?
+                        Image image = new Image(file.toURI().toString());      //something is off here
                         contact.setContactImage(image);
                         continue;
                     }
