@@ -35,11 +35,8 @@ public class ContactData {
     private ObservableList<Contact> contacts;
 
     public ContactData() {
-        // *** initialize the contacts list here ***
         contacts = FXCollections.observableArrayList();
     }
-
-    // *** Add methods to add/delete/access contacts here ***
 
     public void addContact(Contact contact){
         contacts.add(contact);
@@ -58,12 +55,9 @@ public class ContactData {
 
     public void loadContacts() {
         try {
-            // First, create a new XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-            // Setup a new eventReader
             InputStream in = new FileInputStream(CONTACTS_FILE);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
-            // read the XML document
             Contact contact = null;
 
             while (eventReader.hasNext()) {
@@ -71,7 +65,6 @@ public class ContactData {
 
                 if (event.isStartElement()) {
                     StartElement startElement = event.asStartElement();
-                    // If we have a contact item, we create a new contact
                     if (startElement.getName().getLocalPart().equals(CONTACT)) {
                         contact = new Contact();
                         continue;
@@ -115,8 +108,8 @@ public class ContactData {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(CONTACT_IMAGE)) {
                         event = eventReader.nextEvent();
-                        File file = new File(event.asCharacters().getData());
-                        Image image = new Image(file.toURI().toString());
+                        File file = new File(event.toString());
+                        Image image = new Image(file.toURI().toString());       //how to get both the image and the name out of this?
                         contact.setContactImage(image);
                         continue;
                     }
@@ -195,15 +188,7 @@ public class ContactData {
         createNode(eventWriter, PHONE_NUMBER, contact.getPhoneNumber());
         createNode(eventWriter, NOTES, contact.getNotes());
         createNode(eventWriter, FAVOURITES, contact.isFavourite() ? "true" : "false");
-
-        try {
-            if (contact.getContactImage() != null) {
-                File image = File.createTempFile("image-", "-clpj", new File(System.getProperty("user.dir") + "\\src\\images"));
-                createNode(eventWriter, CONTACT_IMAGE, image.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (contact.getContactImage() != null) createNode(eventWriter, CONTACT_IMAGE, contact.getImageFileName());
 
         eventWriter.add(eventFactory.createEndElement("", "", CONTACT));
         eventWriter.add(end);

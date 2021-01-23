@@ -4,47 +4,60 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainWindowController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="405.0" prefWidth="600.0" GridPane.hgrow="ALWAYS">
+<GridPane alignment="center" hgap="10" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10"
+          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="sample.MainWindowController">
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
+    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="405.0" prefWidth="600.0"
+              GridPane.hgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="150.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="150.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="150.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="43.0" minHeight="5.0" prefHeight="43.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="228.0" minHeight="10.0" prefHeight="217.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="43.0" minHeight="5.0" prefHeight="43.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="228.0" minHeight="10.0" prefHeight="217.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-         <children>
-            <ToolBar fx:id="mainToolBar" prefHeight="88.0" prefWidth="600.0" GridPane.columnSpan="2147483647">
-              <items>
-                <Button fx:id="newContactButton" mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="28.0" prefWidth="112.0" text="New Contact" />
-                  <ToggleButton fx:id="favouritesButton" mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="28.0" prefWidth="100.0" text="Favourites" textAlignment="CENTER">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets></ToggleButton>
-              </items>
-               <padding>
-                  <Insets left="15.0" right="15.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </ToolBar>
-            <ListView fx:id="firstNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.rowIndex="1" GridPane.rowSpan="2" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
-            <ListView fx:id="lastNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
-            <ListView fx:id="numberListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
-            <ListView fx:id="notesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
-         </children>
-      </GridPane>
-   </children>
+        <ToolBar fx:id="mainToolBar" prefHeight="88.0" prefWidth="600.0" GridPane.columnSpan="2147483647">
+            <padding>
+                <Insets left="15.0" right="15.0"/>
+            </padding>
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+            <Button fx:id="newContactButton" mnemonicParsing="false" onAction="#showNewItemDialog"
+                    prefHeight="28.0" prefWidth="112.0" text="New Contact"/>
+            <ToggleButton fx:id="favouritesButton" mnemonicParsing="false" onAction="#handleFilterButton"
+                          prefHeight="28.0" prefWidth="100.0" text="Favourites" textAlignment="CENTER">
+                <opaqueInsets>
+                    <Insets/>
+                </opaqueInsets>
+            </ToggleButton>
+        </ToolBar>
+        <ListView fx:id="firstNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0"
+                  GridPane.rowIndex="1" GridPane.rowSpan="2" onMouseClicked="#handleClickListView"
+                  onKeyPressed="#handleKeyPressed"/>
+        <ListView fx:id="lastNameListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0"
+                  GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647"
+                  onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
+        <ListView fx:id="numberListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0"
+                  GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647"
+                  onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
+        <ListView fx:id="notesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0"
+                  GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647"
+                  onMouseClicked="#handleClickListView" onKeyPressed="#handleKeyPressed"/>
+    </GridPane>
 </GridPane>

@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.datamodel.ContactData;
 
-import java.io.IOException;
-
 public class Main extends Application {
 
     @Override

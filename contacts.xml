@@ -1,47 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contacts>
 <contact>
-	<first_name>Lara</first_name>
-	<last_name>Pog</last_name>
-	<phone_number>1234567890</phone_number>
-	<notes>An exemplary human being</notes>
+	<first_name>egdsgdfsgdgsdg</first_name>
+	<last_name>dssdgsdfgdsgdsg</last_name>
+	<phone_number>643663456346</phone_number>
+	<notes>Notes</notes>
 	<is_favourite>false</is_favourite>
-</contact>
-<contact>
-	<first_name>Tom</first_name>
-	<last_name>Poggers</last_name>
-	<phone_number>2156430798</phone_number>
-	<notes>A not so exemplary human being</notes>
-	<is_favourite>false</is_favourite>
-</contact>
-<contact>
-	<first_name>Jubilee</first_name>
-	<last_name>Poggers</last_name>
-	<phone_number>2135730798</phone_number>
-	<notes>A wife of a not so exemplary human being</notes>
-	<is_favourite>false</is_favourite>
-</contact>
-<contact>
-	<first_name>Lace</first_name>
-	<last_name>Kim</last_name>
-	<phone_number>3574120986</phone_number>
-	<notes>First contact added through the app</notes>
-	<is_favourite>true</is_favourite>
-</contact>
-<contact>
-	<first_name>Bryce</first_name>
-	<last_name>Quinlain</last_name>
-	<phone_number>9876543210</phone_number>
-	<notes>Attempt 8 Success!!!</notes>
-	<is_favourite>true</is_favourite>
-	<image>E:\Users\ivka\IdeaProjects\ContactList\src\images\image-1411587497468874353-clpj</image>
-</contact>
-<contact>
-	<first_name>A</first_name>
-	<last_name>J</last_name>
-	<phone_number>123</phone_number>
-	<notes>AJ</notes>
-	<is_favourite>false</is_favourite>
-	<image>E:\Users\ivka\IdeaProjects\ContactList\src\images\image-11956827161272126041-clpj</image>
 </contact>
 </contacts>

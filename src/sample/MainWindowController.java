@@ -1,15 +1,9 @@
 package sample;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,7 +20,7 @@ import java.util.function.Predicate;
 
 public class MainWindowController {
 
-    private List<Contact> contactList;
+    //private List<Contact> contactList;
 
     @FXML
     private ListView<Contact> firstNameListView;
@@ -56,39 +50,22 @@ public class MainWindowController {
     public void initialize(){
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
-        deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-                deleteItem(item);
-            }
+        deleteMenuItem.setOnAction(actionEvent -> {
+            Contact item = firstNameListView.getSelectionModel().getSelectedItem();
+            deleteItem(item);
         });
 
         listContextMenu.getItems().addAll(deleteMenuItem);
-        firstNameListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Contact>() {
-            @Override
-            public void changed(ObservableValue<? extends Contact> observableValue, Contact oldValue, Contact newValue) {
-                if (newValue != null){
-                    Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-                    lastNameListView.setSelectionModel(firstNameListView.getSelectionModel());
-                    numberListView.setSelectionModel(firstNameListView.getSelectionModel());
-                    notesListView.setSelectionModel(firstNameListView.getSelectionModel());
-                }
+        firstNameListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue != null){
+                lastNameListView.setSelectionModel(firstNameListView.getSelectionModel());
+                numberListView.setSelectionModel(firstNameListView.getSelectionModel());
+                notesListView.setSelectionModel(firstNameListView.getSelectionModel());
             }
         });
 
-        all = new Predicate<Contact>() {
-            @Override
-            public boolean test(Contact contact) {
-                return true;
-            }
-        };
-        favourites = new Predicate<Contact>() {
-            @Override
-            public boolean test(Contact contact) {
-                return contact.isFavourite();
-            }
-        };
+        all = contact -> true;
+        favourites = contact -> contact.isFavourite();
 
         filteredList = new FilteredList<>(ContactData.getInstance().getContacts(), all);
         SortedList<Contact> sortedList = new SortedList<>(filteredList, new Comparator<Contact>() {

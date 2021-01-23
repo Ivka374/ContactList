@@ -1,5 +1,6 @@
 package sample.datamodel;
 
+
 import javafx.scene.image.Image;
 
 public class Contact {
@@ -9,6 +10,7 @@ public class Contact {
     private String notes;
     private boolean favourite;
     private Image contactImage;
+    private String imageFileName;
 
     public Contact(String name, String number, String description) {
         String[] names = name.split(" ");
@@ -18,6 +20,7 @@ public class Contact {
         this.notes = description;
         favourite = false;
         contactImage = null;
+        imageFileName = null;
     }
 
     public Contact() {
@@ -69,5 +72,13 @@ public class Contact {
 
     public void setContactImage(Image contactImage) {
         this.contactImage = contactImage;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
     }
 }

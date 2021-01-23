@@ -9,6 +9,7 @@ import sample.datamodel.Contact;
 import sample.datamodel.ContactData;
 
 import java.io.File;
+import java.io.IOException;
 
 public class NewContactDialogController {
 
@@ -28,20 +29,27 @@ public class NewContactDialogController {
     private TextArea descriptionInputField;
 
     public Contact handleFinishingCreation(){
-        if (!nameInputField.equals("") && !numberInputField.equals("") && !descriptionInputField.equals("")){
-
+        try {
             Contact newContact = new Contact(nameInputField.getText(), numberInputField.getText(), descriptionInputField.getText());
-            if (isFavouriteButton.isSelected())newContact.setFavourite(true);
-            if (contactImagePreview != null)newContact.setContactImage(contactImagePreview.getImage());
+            if (nameInputField.getText().matches("\\w+\\s+")) throw new Exception();
+            if (isFavouriteButton.isSelected()) newContact.setFavourite(true);
+            if (contactImagePreview != null) newContact.setContactImage(contactImagePreview.getImage());
+            try {
+                File image = File.createTempFile("image-", "-clpj", new File(System.getProperty("user.dir") + "\\src\\images"));
+                newContact.setImageFileName(image.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             ContactData.getInstance().addContact(newContact);
 
             return newContact;
 
-        } else {
-            Alert blankSpaces = new Alert(Alert.AlertType.WARNING);
+        }catch (Exception e) {
+
+            Alert blankSpaces = new Alert(Alert.AlertType.ERROR);
             blankSpaces.setTitle("Incomplete Contact Properties");
-            blankSpaces.setHeaderText("Please fill in the areas fo name, number and notes!");
+            blankSpaces.setHeaderText("Please fill in the areas for name, number and notes!");
             blankSpaces.show();
 
             return null;
@@ -58,8 +66,8 @@ public class NewContactDialogController {
         File file = fileChooser.showOpenDialog(null);
         if (file != null){
             Image contactImage = new Image(file.toURI().toString());
-            contactImagePreview.setFitHeight(80);
-            contactImagePreview.setFitWidth(80);
+            contactImagePreview.setFitHeight(100);
+            contactImagePreview.setFitWidth(100);
             contactImagePreview.setImage(contactImage);
         }
     }
