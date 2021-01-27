@@ -4,14 +4,10 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import sample.datamodel.Contact;
 import sample.datamodel.ContactData;
@@ -230,30 +226,28 @@ public class MainWindowController {
     }
 
     public void viewItem(Contact item){
-        /*Parent root;
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainToolBar.getScene().getWindow());
+        dialog.setTitle("Contact Details");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("FXMLfiles/contactInfoDialog.fxml"));
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("FXMLfiles/contactInfo.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+            ContactInfoController controller = fxmlLoader.getController();
+            controller.setContact(item);
+
+        }catch (IOException e) {
+            System.out.println("Could not load the dialog");
+            e.printStackTrace();
+            return;
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("FXMLfiles/contactInfo.fxml"));
-            /*
-             * if "fx:controller" is not set in fxml
-             * fxmlLoader.setController(NewWindowController);
-             */
-            Scene scene = new Scene(fxmlLoader.load(), 630, 400);
-            Stage stage = new Stage();
-            stage.setTitle("New Window");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.CANCEL) {
+            dialog.close();
         }
 
     }
@@ -314,8 +308,11 @@ public class MainWindowController {
                 numberListView.setItems(ContactData.getInstance().getContacts());
                 notesListView.setItems(ContactData.getInstance().getContacts());
                 firstNameListView.getSelectionModel().select(newContact);
+                all = contact -> true;
+                favourites = contact ->  contact.isFavourite();
             }
         }
     }
+
 
 }

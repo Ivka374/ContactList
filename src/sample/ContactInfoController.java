@@ -1,14 +1,16 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.datamodel.Contact;
+import sample.datamodel.ContactData;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
 
 public class ContactInfoController {
 
@@ -17,9 +19,6 @@ public class ContactInfoController {
 
     @FXML
     private Button callButton;
-
-    @FXML
-    private Button closeButton;
 
     @FXML
     private ImageView contactImageView;
@@ -33,20 +32,41 @@ public class ContactInfoController {
     @FXML
     private TextArea notesDisplay;
 
-    //how do u get the info of the contact i need to display?
-    public void initialize(){
-       /* name.setText(contact.getFirstName() + " " + contact.getLastName());
+    public void setContact(Contact contact){
+        name.setText(contact.getFirstName() + " " + contact.getLastName());
         number.setText(contact.getPhoneNumber());
         contactImageView.setImage(contact.getContactImage());
         notesDisplay.setText(contact.getNotes());
-        notesDisplay.setWrapText(true);*/
+        notesDisplay.setWrapText(true);
     }
 
-    public void handleCloseButton(){
+    public void handleEditContact(Contact contact){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Edit Contact");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
+        NewContactDialogController controller = fxmlLoader.getController();
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+            controller.handleEditMode(contact);
 
+        }catch (IOException e) {
+            System.out.println("Could not load the dialog");
+            e.printStackTrace();
+            return;
+        }
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK){
+            ContactData.getInstance().removeContact(contact);
+            controller.handleFinishingCreation();
+        }
     }
 
-    public void handleEditContact(){
+    public void handleCall(){
 
     }
 }

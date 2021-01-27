@@ -46,7 +46,7 @@ public class ContactData {
     }
 
     public void removeContact(Contact contact){
-        if (contact.getContactImage() != null){
+        if (contact.getImageFileName() != "defaultContactImage.jpg"){
             Path imagesPath = Paths.get(
                     "E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images\\" +
                             contact.getImageFileName());

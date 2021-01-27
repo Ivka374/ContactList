@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contacts>
 <contact>
-	<first_name>Lily</first_name>
-	<last_name>JK</last_name>
-	<phone_number>34341</phone_number>
-	<notes>Notesps</notes>
-	<is_favourite>false</is_favourite>
-	<image>image-18075433475212675187-clipj.png</image>
-</contact>
-<contact>
 	<first_name>Kyle</first_name>
 	<last_name>Hill</last_name>
 	<phone_number>25431216351</phone_number>

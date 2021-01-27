@@ -81,4 +81,14 @@ public class NewContactDialogController {
         }
     }
 
+
+    public void handleEditMode(Contact item){
+        nameInputField.setText(item.getFirstName() + " " + item.getLastName());
+        numberInputField.setText(item.getPhoneNumber());
+        descriptionInputField.setText(item.getNotes());
+        descriptionInputField.setWrapText(true);
+        contactImagePreview.setImage(item.getContactImage());
+        isFavouriteButton.setSelected(item.isFavourite());
+    }
+
 }
