@@ -32,23 +32,33 @@ public class ContactInfoController {
     @FXML
     private TextArea notesDisplay;
 
+    @FXML
+    private Label favouriteLabel;
+
     public void setContact(Contact contact){
         name.setText(contact.getFirstName() + " " + contact.getLastName());
         number.setText(contact.getPhoneNumber());
         contactImageView.setImage(contact.getContactImage());
         notesDisplay.setText(contact.getNotes());
         notesDisplay.setWrapText(true);
+        favouriteLabel.setVisible(contact.isFavourite());
     }
 
-    public void handleEditContact(Contact contact){
+    public void handleEditContact(){
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Edit Contact");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
         NewContactDialogController controller = fxmlLoader.getController();
+
+        Contact contact = new Contact(this.name.getText(), this.number.getText(), this.notesDisplay.getText());
+        contact.setContactImage(this.contactImageView.getImage());
+        contact.setFavourite(this.favouriteLabel.isVisible());
+        contact.setImageFileName(contact.getContactImage().getUrl());
+
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
-            controller.handleEditMode(contact);
+            if (controller != null) controller.handleEditMode(contact);
 
         }catch (IOException e) {
             System.out.println("Could not load the dialog");
@@ -61,8 +71,8 @@ public class ContactInfoController {
         Optional<ButtonType> result = dialog.showAndWait();
 
         if(result.isPresent() && result.get() == ButtonType.OK){
-            ContactData.getInstance().removeContact(contact);
-            controller.handleFinishingCreation();
+            //ContactData.getInstance().removeContact(contact);
+            //controller.handleFinishingCreation();
         }
     }
 

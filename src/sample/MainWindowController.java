@@ -228,7 +228,6 @@ public class MainWindowController {
     public void viewItem(Contact item){
 
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(mainToolBar.getScene().getWindow());
         dialog.setTitle("Contact Details");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("FXMLfiles/contactInfoDialog.fxml"));
@@ -242,13 +241,9 @@ public class MainWindowController {
             e.printStackTrace();
             return;
         }
+
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-
-        if(result.isPresent() && result.get() == ButtonType.CANCEL) {
-            dialog.close();
-        }
+        dialog.show();
 
     }
 
