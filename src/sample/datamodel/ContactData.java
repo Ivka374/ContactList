@@ -20,17 +20,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
 public class ContactData {
 
     private static final String CONTACTS_FILE = "contacts.xml";
 
     private static final String CONTACT = "contact";
+
     private static final String FIRST_NAME = "first_name";
+
     private static final String LAST_NAME = "last_name";
+
     private static final String PHONE_NUMBER = "phone_number";
+
     private static final String NOTES = "notes";
+
     private static final String FAVOURITES = "is_favourite";
+
     private static final String CONTACT_IMAGE = "image";
 
     private static ContactData instance = new ContactData();
@@ -41,30 +46,32 @@ public class ContactData {
         contacts = FXCollections.observableArrayList();
     }
 
-    public void addContact(Contact contact){
+    public void addContact(Contact contact) {
         contacts.add(contact);
     }
 
-    public void removeContact(Contact contact){
-        if (contact.getImageFileName() != "defaultContactImage.jpg"){
-            Path imagesPath = Paths.get(
-                    "E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images\\" +
-                            contact.getImageFileName());
-           if (Files.exists(imagesPath)){
-               try {
-                   Files.delete(imagesPath);
-                   System.out.println("File "
-                           + imagesPath.toAbsolutePath().toString()
-                           + " successfully removed");
-               } catch (IOException e) {
-                   System.err.println("Unable to delete "
-                           + imagesPath.toAbsolutePath().toString()
-                           + " due to...");
-                   e.printStackTrace();
-               }
-           }
-        }
+    public void removeContact(Contact contact) {
+        removeImageFileIfNotDefault(contact);
         contacts.remove(contact);
+    }
+
+    private void removeImageFileIfNotDefault(Contact contact) {
+        if ("defaultContactImage.jpg".equals(contact.getImageFileName())) {
+            return;
+        }
+
+        Path imagesPath = Paths.get("images", contact.getImageFileName());
+        if (Files.exists(imagesPath)) {
+            try {
+                Files.delete(imagesPath);
+                System.out.println(
+                    "File " + imagesPath.toAbsolutePath().toString() + " successfully removed");
+            } catch (IOException e) {
+                System.err.println(
+                    "Unable to delete " + imagesPath.toAbsolutePath().toString() + " due to...");
+                e.printStackTrace();
+            }
+        }
     }
 
     public ObservableList<Contact> getContacts() {
@@ -92,46 +99,40 @@ public class ContactData {
                         continue;
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(FIRST_NAME)) {
+                    if (event.asStartElement().getName().getLocalPart().equals(FIRST_NAME)) {
                         event = eventReader.nextEvent();
                         contact.setFirstName(event.asCharacters().getData());
                         continue;
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(LAST_NAME)) {
+                    if (event.asStartElement().getName().getLocalPart().equals(LAST_NAME)) {
                         event = eventReader.nextEvent();
                         contact.setLastName(event.asCharacters().getData());
                         continue;
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(PHONE_NUMBER)) {
+                    if (event.asStartElement().getName().getLocalPart().equals(PHONE_NUMBER)) {
                         event = eventReader.nextEvent();
                         contact.setPhoneNumber(event.asCharacters().getData());
                         continue;
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(NOTES)) {
+                    if (event.asStartElement().getName().getLocalPart().equals(NOTES)) {
                         event = eventReader.nextEvent();
                         contact.setNotes(event.asCharacters().getData());
                         continue;
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(FAVOURITES)) {
+                    if (event.asStartElement().getName().getLocalPart().equals(FAVOURITES)) {
                         event = eventReader.nextEvent();
                         contact.setFavourite(event.asCharacters().getData().equals("true"));
                         continue;
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(CONTACT_IMAGE)) {
+                    if (event.asStartElement().getName().getLocalPart().equals(CONTACT_IMAGE)) {
                         event = eventReader.nextEvent();
                         contact.setImageFileName(event.asCharacters().getData());
-                        File file = new File("E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images" + contact.getImageFileName());
+                        File file = Paths.get("images", contact.getImageFileName()).toFile();
                         Image image = new Image(file.toURI().toString());
                         contact.setContactImage(image);
                         continue;
@@ -146,11 +147,9 @@ public class ContactData {
                     }
                 }
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             //e.printStackTrace();
-        }
-        catch (XMLStreamException e) {
+        } catch (XMLStreamException e) {
             e.printStackTrace();
         }
     }
@@ -161,8 +160,8 @@ public class ContactData {
             // create an XMLOutputFactory
             XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
             // create XMLEventWriter
-            XMLEventWriter eventWriter = outputFactory
-                    .createXMLEventWriter(new FileOutputStream(CONTACTS_FILE));
+            XMLEventWriter eventWriter =
+                outputFactory.createXMLEventWriter(new FileOutputStream(CONTACTS_FILE));
             // create an EventFactory
             XMLEventFactory eventFactory = XMLEventFactory.newInstance();
             XMLEvent end = eventFactory.createDTD("\n");
@@ -171,12 +170,11 @@ public class ContactData {
             eventWriter.add(startDocument);
             eventWriter.add(end);
 
-            StartElement contactsStartElement = eventFactory.createStartElement("",
-                    "", "contacts");
+            StartElement contactsStartElement = eventFactory.createStartElement("", "", "contacts");
             eventWriter.add(contactsStartElement);
             eventWriter.add(end);
 
-            for (Contact contact: contacts) {
+            for (Contact contact : contacts) {
                 saveContact(eventWriter, eventFactory, contact);
             }
 
@@ -184,25 +182,22 @@ public class ContactData {
             eventWriter.add(end);
             eventWriter.add(eventFactory.createEndDocument());
             eventWriter.close();
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Problem with Contacts file: " + e.getMessage());
             e.printStackTrace();
-        }
-        catch (XMLStreamException e) {
+        } catch (XMLStreamException e) {
             System.out.println("Problem writing contact: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     private void saveContact(XMLEventWriter eventWriter, XMLEventFactory eventFactory, Contact contact)
-            throws FileNotFoundException, XMLStreamException {
+        throws FileNotFoundException, XMLStreamException {
 
         XMLEvent end = eventFactory.createDTD("\n");
 
         // create contact open tag
-        StartElement configStartElement = eventFactory.createStartElement("",
-                "", CONTACT);
+        StartElement configStartElement = eventFactory.createStartElement("", "", CONTACT);
         eventWriter.add(configStartElement);
         eventWriter.add(end);
         // Write the different nodes
@@ -211,14 +206,14 @@ public class ContactData {
         createNode(eventWriter, PHONE_NUMBER, contact.getPhoneNumber());
         createNode(eventWriter, NOTES, contact.getNotes());
         createNode(eventWriter, FAVOURITES, contact.isFavourite() ? "true" : "false");
-        if (contact.getContactImage() != null) createNode(eventWriter, CONTACT_IMAGE, contact.getImageFileName());
+        if (contact.getContactImage() != null)
+            createNode(eventWriter, CONTACT_IMAGE, contact.getImageFileName());
 
         eventWriter.add(eventFactory.createEndElement("", "", CONTACT));
         eventWriter.add(end);
     }
 
-    private void createNode(XMLEventWriter eventWriter, String name,
-                            String value) throws XMLStreamException {
+    private void createNode(XMLEventWriter eventWriter, String name, String value) throws XMLStreamException {
 
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
         XMLEvent end = eventFactory.createDTD("\n");
@@ -235,6 +230,5 @@ public class ContactData {
         eventWriter.add(eElement);
         eventWriter.add(end);
     }
-
 
 }

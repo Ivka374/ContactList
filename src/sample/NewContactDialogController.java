@@ -12,6 +12,7 @@ import sample.datamodel.ContactData;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class NewContactDialogController {
 
@@ -30,20 +31,29 @@ public class NewContactDialogController {
     @FXML
     private TextArea descriptionInputField;
 
-    public Contact handleFinishingCreation(){
+    public Contact handleFinishingCreation() {
         try {
-            Contact newContact = new Contact(nameInputField.getText(), numberInputField.getText(), descriptionInputField.getText());
-            if (nameInputField.getText().matches("\\w+\\s+")) throw new Exception();
-            if (isFavouriteButton.isSelected()) newContact.setFavourite(true);
-            if (contactImagePreview.getImage() != null){
+            String name = nameInputField.getText().trim();
+            if (!name.matches("\\w+\\s\\w+")) {
+                throw new Exception();
+            }
 
+            Contact newContact =
+                new Contact(name, numberInputField.getText(), descriptionInputField.getText());
+
+            if (isFavouriteButton.isSelected()) {
+                newContact.setFavourite(true);
+            }
+
+            if (contactImagePreview.getImage() != null) {
                 newContact.setContactImage(contactImagePreview.getImage());
 
                 try {
-                    File image = File.createTempFile("image-", "-clipj.png", new File(System.getProperty("user.dir") + "\\src\\images"));
+                    File image = File.createTempFile("image-", "-clipj.png", Paths.get("images").toFile());
                     newContact.setImageFileName(image.getName());
                     String format = "PNG";
-                    ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format, image);
+                    ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format,
+                        image);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -54,7 +64,7 @@ public class NewContactDialogController {
 
             return newContact;
 
-        }catch (Exception e) {
+        } catch (Exception e) {
 
             Alert blankSpaces = new Alert(Alert.AlertType.ERROR);
             blankSpaces.setTitle("Incomplete Contact Properties");
@@ -65,15 +75,17 @@ public class NewContactDialogController {
         }
     }
 
-    public void handleChangingImage(){
+    public void handleChangingImage() {
         FileChooser fileChooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        FileChooser.ExtensionFilter extFilterJPG =
+            new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG =
+            new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
         fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 
         File file = fileChooser.showOpenDialog(null);
-        if (file != null){
+        if (file != null) {
             Image contactImage = new Image(file.toURI().toString());
             contactImagePreview.setFitHeight(100);
             contactImagePreview.setFitWidth(100);
@@ -81,8 +93,7 @@ public class NewContactDialogController {
         }
     }
 
-
-    public void handleEditMode(Contact item){
+    public void handleEditMode(Contact item) {
         nameInputField.setText(item.getFirstName() + " " + item.getLastName());
         numberInputField.setText(item.getPhoneNumber());
         descriptionInputField.setText(item.getNotes());

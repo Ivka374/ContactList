@@ -51,6 +51,7 @@ public class ContactInfoController {
 
     public void handleEditContact(){
         Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(name.getScene().getWindow());
         dialog.setTitle("Edit Contact");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
@@ -59,7 +60,9 @@ public class ContactInfoController {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
             NewContactDialogController controller = fxmlLoader.getController();
-            if (controller != null) controller.handleEditMode(contactViewed.getValue());          //why does it break???
+            if (controller != null) {
+                controller.handleEditMode(contactViewed.getValue());          //why does it break???
+            }
 
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
@@ -74,7 +77,6 @@ public class ContactInfoController {
         }catch (IOException e) {
             System.out.println("Could not load the dialog");
             e.printStackTrace();
-            return;
         }
     }
 

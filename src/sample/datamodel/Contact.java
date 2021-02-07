@@ -1,29 +1,36 @@
 package sample.datamodel;
 
-
 import javafx.scene.image.Image;
 
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 
 public class Contact {
+
     private String firstName;
+
     private String lastName;
+
     private String phoneNumber;
+
     private String notes;
+
     private boolean favourite;
+
     private Image contactImage;
+
     private String imageFileName;
 
     public Contact(String name, String number, String description) {
         String[] names = name.split(" ");
         firstName = names[0];
-        lastName = names[1];
+        lastName = name.length() > 1 ? names[1] : "";
         this.phoneNumber = number;
         this.notes = description;
         favourite = false;
-        File file = new File("E:\\Users\\ivka\\IdeaProjects\\ContactList\\src\\images\\defaultContactImage.jpg");
-        Image image = new Image(file.toURI().toString());
-        contactImage = image;
+        File imageFile = Paths.get("images", "defaultContactImage.jpg").toFile();
+        contactImage = new Image(imageFile.toURI().toString());
         imageFileName = "defaultContactImage.jpg";
     }
 

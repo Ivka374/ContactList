@@ -2,7 +2,7 @@ module ContactList {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.swing;
-    requires graphicsLib;
+    requires javafx.graphics;
     requires java.xml;
 
     opens sample;
