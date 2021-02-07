@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -35,7 +37,10 @@ public class ContactInfoController {
     @FXML
     private Label favouriteLabel;
 
+    private ObjectProperty<Contact> contactViewed = new SimpleObjectProperty();
+
     public void setContact(Contact contact){
+        contactViewed.setValue(contact);
         name.setText(contact.getFirstName() + " " + contact.getLastName());
         number.setText(contact.getPhoneNumber());
         contactImageView.setImage(contact.getContactImage());
@@ -49,30 +54,27 @@ public class ContactInfoController {
         dialog.setTitle("Edit Contact");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
-        NewContactDialogController controller = fxmlLoader.getController();
-
-        Contact contact = new Contact(this.name.getText(), this.number.getText(), this.notesDisplay.getText());
-        contact.setContactImage(this.contactImageView.getImage());
-        contact.setFavourite(this.favouriteLabel.isVisible());
-        contact.setImageFileName(contact.getContactImage().getUrl());
 
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
-            if (controller != null) controller.handleEditMode(contact);
+
+            NewContactDialogController controller = fxmlLoader.getController();
+            if (controller != null) controller.handleEditMode(contactViewed.getValue());          //why does it break???
+
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+            Optional<ButtonType> result = dialog.showAndWait();
+
+            if(result.isPresent() && result.get() == ButtonType.OK){
+                ContactData.getInstance().removeContact(contactViewed.getValue());
+                controller.handleFinishingCreation();
+            }
 
         }catch (IOException e) {
             System.out.println("Could not load the dialog");
             e.printStackTrace();
             return;
-        }
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-
-        if(result.isPresent() && result.get() == ButtonType.OK){
-            //ContactData.getInstance().removeContact(contact);
-            //controller.handleFinishingCreation();
         }
     }
 

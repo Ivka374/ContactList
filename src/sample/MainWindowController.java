@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -46,17 +48,30 @@ public class MainWindowController {
     private Predicate<Contact> all;
     private Predicate<Contact> favourites;
 
+    private ObjectProperty<Contact> selectedContact;
+    private static MainWindowController instance = new MainWindowController();
+
+    public MainWindowController() {
+        selectedContact = new SimpleObjectProperty<>();
+    }
+
+    public ObjectProperty<Contact> getSelectedContact(){
+        return selectedContact;
+    }
+
+    public static MainWindowController getInstance(){
+        return instance;
+    }
+
     public void initialize(){
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
         deleteMenuItem.setOnAction(actionEvent -> {
-            Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-            deleteItem(item);
+            deleteItem(selectedContact.getValue());
         });
         MenuItem viewMenuItem = new MenuItem("View");
         viewMenuItem.setOnAction(actionEvent -> {
-            Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-            viewItem(item);
+            viewItem(selectedContact.getValue());
         });
 
         listContextMenu.getItems().addAll(deleteMenuItem);
@@ -86,6 +101,8 @@ public class MainWindowController {
         notesListView.setItems(sortedList);
         firstNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         firstNameListView.getSelectionModel().selectFirst();
+
+        selectedContact.bind(firstNameListView.getSelectionModel().selectedItemProperty());
 
         //should find a way to avoid the repetition
         firstNameListView.setCellFactory(new Callback<ListView<Contact>, ListCell<Contact>>() {
@@ -257,10 +274,9 @@ public class MainWindowController {
 
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent){
-        Contact selectedContact = firstNameListView.getSelectionModel().getSelectedItem();
         if (selectedContact != null){
             if (keyEvent.getCode().equals(KeyCode.DELETE)){
-                deleteItem(selectedContact);
+                deleteItem(selectedContact.getValue());
             }
         }
     }
