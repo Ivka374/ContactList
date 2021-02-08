@@ -52,19 +52,6 @@ public class MainWindowController {
 
     private ObjectProperty<Contact> selectedContact;
 
-    private static MainWindowController instance = new MainWindowController();
-
-    public MainWindowController() {
-        selectedContact = new SimpleObjectProperty<>();
-    }
-
-    public ObjectProperty<Contact> getSelectedContact() {
-        return selectedContact;
-    }
-
-    public static MainWindowController getInstance() {
-        return instance;
-    }
 
     public void initialize() {
         listContextMenu = new ContextMenu();
@@ -76,6 +63,8 @@ public class MainWindowController {
         viewMenuItem.setOnAction(actionEvent -> {
             viewItem(selectedContact.getValue());
         });
+        MenuItem editMenuItem = new MenuItem("Edit");
+        editMenuItem.setOnAction(actionEvent -> editItem(selectedContact.getValue()));
 
         listContextMenu.getItems().addAll(deleteMenuItem);
         listContextMenu.getItems().addAll(viewMenuItem);
@@ -266,6 +255,36 @@ public class MainWindowController {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
         dialog.show();
 
+    }
+
+    public void editItem(Contact item){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Edit Contact");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
+
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+
+            NewContactDialogController controller = fxmlLoader.getController();
+            if (controller != null) {
+                controller.handleEditMode(item);
+            }
+
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+            Optional<ButtonType> result = dialog.showAndWait();
+
+            if(result.isPresent() && result.get() == ButtonType.OK){
+                ContactData.getInstance().removeContact(item);
+                controller.handleFinishingCreation();
+            }
+
+        }catch (IOException e) {
+            System.out.println("Could not load the dialog");
+            e.printStackTrace();
+        }
     }
 
     @FXML

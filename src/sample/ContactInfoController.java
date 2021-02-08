@@ -17,9 +17,6 @@ import java.util.Optional;
 public class ContactInfoController {
 
     @FXML
-    private Button editButton;
-
-    @FXML
     private Button callButton;
 
     @FXML
@@ -47,37 +44,6 @@ public class ContactInfoController {
         notesDisplay.setText(contact.getNotes());
         notesDisplay.setWrapText(true);
         favouriteLabel.setVisible(contact.isFavourite());
-    }
-
-    public void handleEditContact(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(name.getScene().getWindow());
-        dialog.setTitle("Edit Contact");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
-
-        try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-
-            NewContactDialogController controller = fxmlLoader.getController();
-            if (controller != null) {
-                controller.handleEditMode(contactViewed.getValue());          //why does it break???
-            }
-
-            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-            dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-            Optional<ButtonType> result = dialog.showAndWait();
-
-            if(result.isPresent() && result.get() == ButtonType.OK){
-                ContactData.getInstance().removeContact(contactViewed.getValue());
-                controller.handleFinishingCreation();
-            }
-
-        }catch (IOException e) {
-            System.out.println("Could not load the dialog");
-            e.printStackTrace();
-        }
     }
 
     public void handleCall(){
