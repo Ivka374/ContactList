@@ -16,4 +16,20 @@
 	<is_favourite>false</is_favourite>
 	<image>defaultContactImage.jpg</image>
 </contact>
+<contact>
+	<first_name>Дияна</first_name>
+	<last_name>Аз</last_name>
+	<phone_number>088461323</phone_number>
+	<notes>Сега може да пише на кирилица също</notes>
+	<is_favourite>true</is_favourite>
+	<image>defaultContactImage.jpg</image>
+</contact>
+<contact>
+	<first_name>Two</first_name>
+	<last_name>страни</last_name>
+	<phone_number>02302</phone_number>
+	<notes>Now they can both be combined</notes>
+	<is_favourite>false</is_favourite>
+	<image>image-10240460918550057648-clipj.png</image>
+</contact>
 </contacts>
