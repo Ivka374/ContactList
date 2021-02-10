@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contacts>
 <contact>
-	<first_name>Kyle</first_name>
-	<last_name>Hill</last_name>
-	<phone_number>25431216351</phone_number>
-	<notes>Youtuber</notes>
-	<is_favourite>true</is_favourite>
-	<image>defaultContactImage.jpg</image>
-</contact>
-<contact>
 	<first_name>Lily</first_name>
 	<last_name>Padson</last_name>
 	<phone_number>7454754645</phone_number>
