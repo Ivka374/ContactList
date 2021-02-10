@@ -47,6 +47,12 @@ public class ContactInfoController {
     }
 
     public void handleCall(){
+        Alert call = new Alert(Alert.AlertType.INFORMATION);
+        call.setTitle("Call " + contactViewed.getValue().getPhoneNumber());
+        call.setHeaderText("You are trying to call " + contactViewed.getValue().getFirstName() + " " +
+                contactViewed.getValue().getLastName());
+        call.setContentText(contactViewed.getValue().getNotes());
+        call.show();
 
     }
 }
