@@ -50,7 +50,7 @@ public class MainWindowController {
 
     private Predicate<Contact> favourites;
 
-    private ObjectProperty<Contact> selectedContact;
+    private ObjectProperty<Contact> selectedContact = new SimpleObjectProperty<>();
 
 
     public void initialize() {
@@ -68,6 +68,7 @@ public class MainWindowController {
 
         listContextMenu.getItems().addAll(deleteMenuItem);
         listContextMenu.getItems().addAll(viewMenuItem);
+        listContextMenu.getItems().addAll(editMenuItem);
         firstNameListView.getSelectionModel()
                          .selectedItemProperty()
                          .addListener((observableValue, oldValue, newValue) -> {
@@ -224,6 +225,7 @@ public class MainWindowController {
         });
     }
 
+    @FXML
     public void deleteItem(Contact item) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Contact");
@@ -235,6 +237,7 @@ public class MainWindowController {
         }
     }
 
+    @FXML
     public void viewItem(Contact item) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -257,59 +260,37 @@ public class MainWindowController {
 
     }
 
+    @FXML
     public void editItem(Contact item){
         Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainToolBar.getScene().getWindow());
         dialog.setTitle("Edit Contact");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("FXMLfiles/newContactDialog.fxml"));
 
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
-
-            NewContactDialogController controller = fxmlLoader.getController();
-            if (controller != null) {
-                controller.handleEditMode(item);
-            }
+            dialog.setResizable(true);
 
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
+
+            NewContactDialogController controller = fxmlLoader.getController();
+            controller.handleEditMode(item);
+            
             Optional<ButtonType> result = dialog.showAndWait();
 
-            if(result.isPresent() && result.get() == ButtonType.OK){
-                ContactData.getInstance().removeContact(item);
-                controller.handleFinishingCreation();
+
+            if(!result.isPresent() || result.get() != ButtonType.OK){
+                return;
             }
+            ContactData.getInstance().removeContact(item);
+            controller.handleFinishingCreation();
 
         }catch (IOException e) {
             System.out.println("Could not load the dialog");
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void handleClickListView() {
-        Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-        lastNameListView.getSelectionModel().select(item);
-        numberListView.getSelectionModel().select(item);
-        notesListView.getSelectionModel().select(item);
-    }
-
-    @FXML
-    public void handleKeyPressed(KeyEvent keyEvent) {
-        if (selectedContact != null) {
-            if (keyEvent.getCode().equals(KeyCode.DELETE)) {
-                deleteItem(selectedContact.getValue());
-            }
-        }
-    }
-
-    @FXML
-    public void handleFilterButton() {
-        if (favouritesButton.isSelected()) {
-            filteredList.setPredicate(favourites);
-        } else {
-            filteredList.setPredicate(all);
         }
     }
 
@@ -344,5 +325,31 @@ public class MainWindowController {
         }
 
         firstNameListView.getSelectionModel().select(newContact);
+    }
+
+    @FXML
+    public void handleClickListView() {
+        Contact item = firstNameListView.getSelectionModel().getSelectedItem();
+        lastNameListView.getSelectionModel().select(item);
+        numberListView.getSelectionModel().select(item);
+        notesListView.getSelectionModel().select(item);
+    }
+
+    @FXML
+    public void handleKeyPressed(KeyEvent keyEvent) {
+        if (selectedContact != null) {
+            if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+                deleteItem(selectedContact.getValue());
+            }
+        }
+    }
+
+    @FXML
+    public void handleFilterButton() {
+        if (favouritesButton.isSelected()) {
+            filteredList.setPredicate(favourites);
+        } else {
+            filteredList.setPredicate(all);
+        }
     }
 }

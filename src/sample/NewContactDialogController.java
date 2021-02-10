@@ -99,6 +99,8 @@ public class NewContactDialogController {
         descriptionInputField.setText(item.getNotes());
         descriptionInputField.setWrapText(true);
         contactImagePreview.setImage(item.getContactImage());
+        contactImagePreview.setFitWidth(250);
+        contactImagePreview.setFitHeight(250);
         isFavouriteButton.setSelected(item.isFavourite());
     }
 
