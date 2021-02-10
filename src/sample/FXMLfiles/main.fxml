@@ -30,7 +30,7 @@
             <GridPane.margin>
                 <Insets />
             </GridPane.margin>
-            <Button fx:id="newContactButton" mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="28.0" prefWidth="112.0" text="New Contact" />
+            <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="28.0" prefWidth="112.0" text="New Contact" />
             <ToggleButton fx:id="favouritesButton" mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="28.0" prefWidth="100.0" text="Favourites" textAlignment="CENTER">
                 <opaqueInsets>
                     <Insets />

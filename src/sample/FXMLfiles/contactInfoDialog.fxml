@@ -33,7 +33,7 @@
             </VBox.margin>
          </TextArea>
          <HBox prefHeight="100.0" prefWidth="200.0">
-            <Button fx:id="callButton" mnemonicParsing="false" onAction="#handleCall" text="Call">
+            <Button mnemonicParsing="false" onAction="#handleCall" text="Call">
                <font>
                   <Font size="15.0" />
                </font>

@@ -14,7 +14,7 @@
             <TextField fx:id="numberInputField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Notes: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <TextArea fx:id="descriptionInputField" promptText="Notes" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="changePictureButton" onAction="#handleChangingImage" text="Change Picture" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Button onAction="#handleChangingImage" text="Change Picture" GridPane.columnIndex="0" GridPane.rowIndex="3" />
             <ImageView fx:id="contactImagePreview" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          <columnConstraints>
             <ColumnConstraints />

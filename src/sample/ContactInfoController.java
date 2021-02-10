@@ -3,21 +3,11 @@ package sample;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.datamodel.Contact;
-import sample.datamodel.ContactData;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
 
 public class ContactInfoController {
-
-    @FXML
-    private Button callButton;
 
     @FXML
     private ImageView contactImageView;
@@ -34,7 +24,7 @@ public class ContactInfoController {
     @FXML
     private Label favouriteLabel;
 
-    private ObjectProperty<Contact> contactViewed = new SimpleObjectProperty();
+    private final ObjectProperty<Contact> contactViewed = new SimpleObjectProperty();
 
     public void setContact(Contact contact){
         contactViewed.setValue(contact);

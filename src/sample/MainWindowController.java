@@ -3,16 +3,12 @@ package sample;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.util.Callback;
 import sample.datamodel.Contact;
 import sample.datamodel.ContactData;
 
@@ -30,9 +26,6 @@ public class MainWindowController {
     private ToggleButton favouritesButton;
 
     @FXML
-    private ContextMenu listContextMenu;
-
-    @FXML
     private ToolBar mainToolBar;
 
     private FilteredList<Contact> filteredList;
@@ -45,15 +38,11 @@ public class MainWindowController {
 
 
     public void initialize() {
-        listContextMenu = new ContextMenu();
+        ContextMenu listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
-        deleteMenuItem.setOnAction(actionEvent -> {
-            deleteItem(selectedContact.getValue());
-        });
+        deleteMenuItem.setOnAction(actionEvent -> deleteItem(selectedContact.getValue()));
         MenuItem viewMenuItem = new MenuItem("View");
-        viewMenuItem.setOnAction(actionEvent -> {
-            viewItem(selectedContact.getValue());
-        });
+        viewMenuItem.setOnAction(actionEvent -> viewItem(selectedContact.getValue()));
         MenuItem editMenuItem = new MenuItem("Edit");
         editMenuItem.setOnAction(actionEvent -> editItem(selectedContact.getValue()));
 
@@ -79,7 +68,6 @@ public class MainWindowController {
 
         tableOfContacts.getColumns().addAll(firstName, lastName, number, notes);
 
-
         firstName.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getFirstName()));
         setCellContents(firstName);
         lastName.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getLastName()));
@@ -88,7 +76,6 @@ public class MainWindowController {
         setCellContents(number);
         notes.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getNotes()));
         setCellContents(notes);
-
 
         tableOfContacts.setItems(sortedList);
         tableOfContacts.setContextMenu(listContextMenu);
@@ -151,7 +138,7 @@ public class MainWindowController {
             Optional<ButtonType> result = dialog.showAndWait();
 
 
-            if(!result.isPresent() || result.get() != ButtonType.OK){
+            if(result.isEmpty() || result.get() != ButtonType.OK){
                 return;
             }
             ContactData.getInstance().removeContact(item);
@@ -194,15 +181,6 @@ public class MainWindowController {
         }
 
         tableOfContacts.getSelectionModel().select(newContact);
-    }
-
-    @FXML
-    public void handleKeyPressed(KeyEvent keyEvent) {
-        if (selectedContact != null) {
-            if (keyEvent.getCode().equals(KeyCode.DELETE)) {
-                deleteItem(selectedContact.getValue());
-            }
-        }
     }
 
     @FXML
