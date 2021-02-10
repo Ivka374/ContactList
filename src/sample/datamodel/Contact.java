@@ -3,7 +3,6 @@ package sample.datamodel;
 import javafx.scene.image.Image;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.file.Paths;
 
 public class Contact {

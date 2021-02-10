@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contacts>
 <contact>
-	<first_name>Lucy</first_name>
-	<last_name>Jackson</last_name>
-	<phone_number>3541323540</phone_number>
-	<notes>Fairy Tail but not quite</notes>
-	<is_favourite>false</is_favourite>
-	<image>image-17754585089348628125-clipj.png</image>
-</contact>
-<contact>
 	<first_name>Kyle</first_name>
 	<last_name>Hill</last_name>
 	<phone_number>25431216351</phone_number>
 	<notes>Youtuber</notes>
 	<is_favourite>true</is_favourite>
-	<image>image-18020773976157090029-clipj.png</image>
+	<image>defaultContactImage.jpg</image>
+</contact>
+<contact>
+	<first_name>Lucy</first_name>
+	<last_name>Jackson</last_name>
+	<phone_number>3541323540</phone_number>
+	<notes>Another Lucy yet again: take 2</notes>
+	<is_favourite>false</is_favourite>
+	<image>image-2652357021176014686-clipj.png</image>
 </contact>
 </contacts>

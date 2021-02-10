@@ -21,8 +21,6 @@ import java.util.function.Predicate;
 
 public class MainWindowController {
 
-    //private List<Contact> contactList;
-
     @FXML
     private ListView<Contact> firstNameListView;
 
@@ -272,13 +270,12 @@ public class MainWindowController {
             dialog.getDialogPane().setContent(fxmlLoader.load());
             dialog.setResizable(true);
 
+            NewContactDialogController controller = fxmlLoader.getController();
+            controller.handleEditMode(item);
+
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
-
-            NewContactDialogController controller = fxmlLoader.getController();
-            controller.handleEditMode(item);
-            
             Optional<ButtonType> result = dialog.showAndWait();
 
 

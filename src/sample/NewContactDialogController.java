@@ -48,14 +48,18 @@ public class NewContactDialogController {
             if (contactImagePreview.getImage() != null) {
                 newContact.setContactImage(contactImagePreview.getImage());
 
-                try {
-                    File image = File.createTempFile("image-", "-clipj.png", Paths.get("images").toFile());
-                    newContact.setImageFileName(image.getName());
-                    String format = "PNG";
-                    ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format,
-                        image);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!contactImagePreview.getImage().getUrl().endsWith("defaultContactImage.jpg")) {
+                    try {
+                        File image = File.createTempFile("image-", "-clipj.png", Paths.get("images").toFile());
+                        newContact.setImageFileName(image.getName());
+                        String format = "PNG";
+                        ImageIO.write(SwingFXUtils.fromFXImage(contactImagePreview.getImage(), null), format,
+                                image);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    newContact.setImageFileName("defaultContactImage.jpg");
                 }
 
             }
