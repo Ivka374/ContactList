@@ -81,81 +81,13 @@ public class MainWindowController {
 
 
         firstName.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getFirstName()));
-        firstName.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    Contact remakeContact = getTableView().getItems().get(getIndex());
-                    if (remakeContact.isFavourite()) {
-                        setTextFill(Color.DARKGOLDENROD);
-                    } else {
-                        setTextFill(Color.BLACK);
-                    }
-                }
-            }
-        });
-
+        setCellContents(firstName);
         lastName.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getLastName()));
-        lastName.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    Contact remakeContact = getTableView().getItems().get(getIndex());
-                    if (remakeContact.isFavourite()) {
-                        setTextFill(Color.DARKGOLDENROD);
-                    } else {
-                        setTextFill(Color.BLACK);
-                    }
-                }
-            }
-        });
-
+        setCellContents(lastName);
         number.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getPhoneNumber()));
-        number.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    Contact remakeContact = getTableView().getItems().get(getIndex());
-                    if (remakeContact.isFavourite()) {
-                        setTextFill(Color.DARKGOLDENROD);
-                    } else {
-                        setTextFill(Color.BLACK);
-                    }
-                }
-            }
-        });
-
+        setCellContents(number);
         notes.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getNotes()));
-        notes.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    Contact remakeContact = getTableView().getItems().get(getIndex());
-                    if (remakeContact.isFavourite()) {
-                        setTextFill(Color.DARKGOLDENROD);
-                    } else {
-                        setTextFill(Color.BLACK);
-                    }
-                }
-            }
-        });
+        setCellContents(notes);
 
 
         tableOfContacts.setItems(sortedList);
@@ -280,5 +212,25 @@ public class MainWindowController {
         } else {
             filteredList.setPredicate(all);
         }
+    }
+
+    public void setCellContents(TableColumn<Contact, String> columnToSet){
+        columnToSet.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    Contact remakeContact = getTableView().getItems().get(getIndex());
+                    if (remakeContact.isFavourite()) {
+                        setTextFill(Color.DARKGOLDENROD);
+                    } else {
+                        setTextFill(Color.BLACK);
+                    }
+                }
+            }
+        });
     }
 }
