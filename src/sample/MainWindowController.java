@@ -2,6 +2,8 @@ package sample;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -22,16 +24,7 @@ import java.util.function.Predicate;
 public class MainWindowController {
 
     @FXML
-    private ListView<Contact> firstNameListView;
-
-    @FXML
-    private ListView<Contact> lastNameListView;
-
-    @FXML
-    private ListView<Contact> numberListView;
-
-    @FXML
-    private ListView<Contact> notesListView;
+    private TableView<Contact> tableOfContacts;
 
     @FXML
     private ToggleButton favouritesButton;
@@ -48,7 +41,7 @@ public class MainWindowController {
 
     private Predicate<Contact> favourites;
 
-    private ObjectProperty<Contact> selectedContact = new SimpleObjectProperty<>();
+    private final ObjectProperty<Contact> selectedContact = new SimpleObjectProperty<>();
 
 
     public void initialize() {
@@ -67,160 +60,107 @@ public class MainWindowController {
         listContextMenu.getItems().addAll(deleteMenuItem);
         listContextMenu.getItems().addAll(viewMenuItem);
         listContextMenu.getItems().addAll(editMenuItem);
-        firstNameListView.getSelectionModel()
-                         .selectedItemProperty()
-                         .addListener((observableValue, oldValue, newValue) -> {
-                             if (newValue != null) {
-                                 lastNameListView.setSelectionModel(firstNameListView.getSelectionModel());
-                                 numberListView.setSelectionModel(firstNameListView.getSelectionModel());
-                                 notesListView.setSelectionModel(firstNameListView.getSelectionModel());
-                             }
-                         });
+
 
         all = contact -> true;
         favourites = contact -> contact.isFavourite();
 
         filteredList = new FilteredList<>(ContactData.getInstance().getContacts(), all);
         SortedList<Contact> sortedList =
-            new SortedList<>(filteredList, (o1, o2) -> o1.getFirstName().compareTo(o2.getFirstName()));
+            new SortedList<>(filteredList, Comparator.comparing(Contact::getFirstName));
 
-        firstNameListView.setItems(sortedList);
-        lastNameListView.setItems(sortedList);
-        numberListView.setItems(sortedList);
-        notesListView.setItems(sortedList);
-        firstNameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        firstNameListView.getSelectionModel().selectFirst();
+        TableColumn<Contact, String> firstName = new TableColumn<>("First Name");
+        TableColumn<Contact, String> lastName = new TableColumn<>("Last Name");
+        TableColumn<Contact, String> number = new TableColumn<>("Phone Number");
+        TableColumn<Contact, String> notes = new TableColumn<>("Notes");
 
-        selectedContact.bind(firstNameListView.getSelectionModel().selectedItemProperty());
+        selectedContact.bind(tableOfContacts.getSelectionModel().selectedItemProperty());
+        tableOfContacts.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        //should find a way to avoid the repetition
-        firstNameListView.setCellFactory(new Callback<>() {
+        tableOfContacts.getColumns().addAll(firstName, lastName, number, notes);
 
+
+        firstName.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getFirstName()));
+        firstName.setCellFactory(column -> new TableCell<>() {
             @Override
-            public ListCell<Contact> call(ListView<Contact> contactListView) {
-                ListCell<Contact> cell = new ListCell<>() {
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
 
-                    @Override
-                    protected void updateItem(Contact contact, boolean empty) {
-                        super.updateItem(contact, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(contact.getFirstName());
-                            if (contact.isFavourite()) {
-                                setTextFill(Color.DARKGOLDENROD);
-                            } else {
-                                setTextFill(Color.BLACK);
-                            }
-                        }
-                    }
-                };
-                cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
-                    if (isNowEmpty) {
-                        cell.setContextMenu(null);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    Contact remakeContact = getTableView().getItems().get(getIndex());
+                    if (remakeContact.isFavourite()) {
+                        setTextFill(Color.DARKGOLDENROD);
                     } else {
-                        cell.setContextMenu(listContextMenu);
+                        setTextFill(Color.BLACK);
                     }
-                });
-                return cell;
+                }
             }
         });
-        //should find a way to avoid the repetition
-        lastNameListView.setCellFactory(new Callback<>() {
 
+        lastName.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getLastName()));
+        lastName.setCellFactory(column -> new TableCell<>() {
             @Override
-            public ListCell<Contact> call(ListView<Contact> contactListView) {
-                ListCell<Contact> cell = new ListCell<>() {
-
-                    @Override
-                    protected void updateItem(Contact contact, boolean empty) {
-                        super.updateItem(contact, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(contact.getLastName());
-                            if (contact.isFavourite()) {
-                                setTextFill(Color.DARKGOLDENROD);
-                            } else {
-                                setTextFill(Color.BLACK);
-                            }
-                        }
-                    }
-                };
-                cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
-                    if (isNowEmpty) {
-                        cell.setContextMenu(null);
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    Contact remakeContact = getTableView().getItems().get(getIndex());
+                    if (remakeContact.isFavourite()) {
+                        setTextFill(Color.DARKGOLDENROD);
                     } else {
-                        cell.setContextMenu(listContextMenu);
+                        setTextFill(Color.BLACK);
                     }
-                });
-                return cell;
+                }
             }
         });
-        //should find a way to avoid the repetition
-        numberListView.setCellFactory(new Callback<>() {
 
+        number.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getPhoneNumber()));
+        number.setCellFactory(column -> new TableCell<>() {
             @Override
-            public ListCell<Contact> call(ListView<Contact> contactListView) {
-                ListCell<Contact> cell = new ListCell<>() {
-
-                    @Override
-                    protected void updateItem(Contact contact, boolean empty) {
-                        super.updateItem(contact, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(contact.getPhoneNumber());
-                            if (contact.isFavourite()) {
-                                setTextFill(Color.DARKGOLDENROD);
-                            } else {
-                                setTextFill(Color.BLACK);
-                            }
-                        }
-                    }
-                };
-                cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
-                    if (isNowEmpty) {
-                        cell.setContextMenu(null);
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    Contact remakeContact = getTableView().getItems().get(getIndex());
+                    if (remakeContact.isFavourite()) {
+                        setTextFill(Color.DARKGOLDENROD);
                     } else {
-                        cell.setContextMenu(listContextMenu);
+                        setTextFill(Color.BLACK);
                     }
-                });
-                return cell;
+                }
             }
         });
-        //should find a way to avoid the repetition
-        notesListView.setCellFactory(new Callback<>() {
 
+        notes.setCellValueFactory(contactStringCellDataFeatures -> new SimpleStringProperty(contactStringCellDataFeatures.getValue().getNotes()));
+        notes.setCellFactory(column -> new TableCell<>() {
             @Override
-            public ListCell<Contact> call(ListView<Contact> contactListView) {
-                ListCell<Contact> cell = new ListCell<>() {
-
-                    @Override
-                    protected void updateItem(Contact contact, boolean empty) {
-                        super.updateItem(contact, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(contact.getNotes());
-                            if (contact.isFavourite()) {
-                                setTextFill(Color.DARKGOLDENROD);
-                            } else {
-                                setTextFill(Color.BLACK);
-                            }
-                        }
-                    }
-                };
-                cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
-                    if (isNowEmpty) {
-                        cell.setContextMenu(null);
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    Contact remakeContact = getTableView().getItems().get(getIndex());
+                    if (remakeContact.isFavourite()) {
+                        setTextFill(Color.DARKGOLDENROD);
                     } else {
-                        cell.setContextMenu(listContextMenu);
+                        setTextFill(Color.BLACK);
                     }
-                });
-                return cell;
+                }
             }
         });
+
+
+        tableOfContacts.setItems(sortedList);
+        tableOfContacts.setContextMenu(listContextMenu);
+
     }
 
     @FXML
@@ -321,15 +261,7 @@ public class MainWindowController {
             return;
         }
 
-        firstNameListView.getSelectionModel().select(newContact);
-    }
-
-    @FXML
-    public void handleClickListView() {
-        Contact item = firstNameListView.getSelectionModel().getSelectedItem();
-        lastNameListView.getSelectionModel().select(item);
-        numberListView.getSelectionModel().select(item);
-        notesListView.getSelectionModel().select(item);
+        tableOfContacts.getSelectionModel().select(newContact);
     }
 
     @FXML
