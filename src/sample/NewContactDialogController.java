@@ -91,8 +91,8 @@ public class NewContactDialogController {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             Image contactImage = new Image(file.toURI().toString());
-            contactImagePreview.setFitHeight(100);
-            contactImagePreview.setFitWidth(100);
+            contactImagePreview.setFitHeight(250);
+            contactImagePreview.setFitWidth(250);
             contactImagePreview.setImage(contactImage);
         }
     }

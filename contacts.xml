@@ -9,11 +9,19 @@
 	<image>defaultContactImage.jpg</image>
 </contact>
 <contact>
-	<first_name>Lucy</first_name>
-	<last_name>Jackson</last_name>
-	<phone_number>3541323540</phone_number>
-	<notes>Another Lucy yet again: take 2</notes>
+	<first_name>Crazi</first_name>
+	<last_name>Camel</last_name>
+	<phone_number>032303232032030</phone_number>
+	<notes>It has 5 humps!!</notes>
 	<is_favourite>false</is_favourite>
-	<image>image-2652357021176014686-clipj.png</image>
+	<image>image-288316901946527535-clipj.png</image>
+</contact>
+<contact>
+	<first_name>Lily</first_name>
+	<last_name>Padson</last_name>
+	<phone_number>7454754645</phone_number>
+	<notes>Elegant like a water lily</notes>
+	<is_favourite>true</is_favourite>
+	<image>image-3829112049286384334-clipj.png</image>
 </contact>
 </contacts>
