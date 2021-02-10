@@ -34,7 +34,7 @@ public class NewContactDialogController {
     public Contact handleFinishingCreation() {
         try {
             String name = nameInputField.getText().trim();
-            if (!name.matches("\\w+\\s\\w+")) {
+            if (!name.matches("\\w+\\s\\w+") || !numberInputField.getText().matches("\\d+")) {
                 throw new Exception();
             }
 
