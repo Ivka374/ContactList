@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contacts>
 <contact>
-	<first_name>Lily</first_name>
-	<last_name>Padson</last_name>
-	<phone_number>7454754645</phone_number>
-	<notes>Elegant like a water lily</notes>
-	<is_favourite>true</is_favourite>
-	<image>image-3829112049286384334-clipj.png</image>
-</contact>
-<contact>
 	<first_name>Bay</first_name>
 	<last_name>Lee</last_name>
 	<phone_number>310321312</phone_number>
@@ -25,11 +17,19 @@
 	<image>defaultContactImage.jpg</image>
 </contact>
 <contact>
-	<first_name>Two</first_name>
-	<last_name>страни</last_name>
-	<phone_number>02302</phone_number>
-	<notes>Now they can both be combined</notes>
+	<first_name>Дияна</first_name>
+	<last_name>кирилица</last_name>
+	<phone_number>0884 222 444</phone_number>
+	<notes>обади ми се 	</notes>
 	<is_favourite>false</is_favourite>
-	<image>image-10240460918550057648-clipj.png</image>
+	<image>image-5326071731857291355-clipj.png</image>
+</contact>
+<contact>
+	<first_name>Lily</first_name>
+	<last_name>Padson</last_name>
+	<phone_number>7454754645</phone_number>
+	<notes>Elegant like a water lily</notes>
+	<is_favourite>true</is_favourite>
+	<image>image-5885488183644424021-clipj.png</image>
 </contact>
 </contacts>
