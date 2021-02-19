@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" maxHeight="500.0" maxWidth="700.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainWindowController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="405.0" prefWidth="600.0" GridPane.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="43.0" minHeight="5.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="228.0" minHeight="10.0" prefHeight="217.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <ToolBar fx:id="mainToolBar" prefHeight="88.0" prefWidth="600.0" GridPane.columnSpan="2147483647">
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin>
+            <Button mnemonicParsing="false" onAction="#showNewItemDialog" prefHeight="28.0" prefWidth="112.0" text="New Contact" />
+            <ToggleButton fx:id="favouritesButton" mnemonicParsing="false" onAction="#handleFilterButton" prefHeight="28.0" prefWidth="100.0" text="Favourites" textAlignment="CENTER">
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+            </ToggleButton>
+        </ToolBar>
+    </GridPane>
+   <TableView fx:id="tableOfContacts" prefHeight="200.0" prefWidth="200.0">
+      <GridPane.margin>
+         <Insets top="40.0" />
+      </GridPane.margin>
+   </TableView>
+</GridPane>
