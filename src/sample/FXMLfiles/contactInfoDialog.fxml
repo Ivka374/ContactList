@@ -6,11 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ContactInfoController">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="678.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ContactInfoController">
 
    <content>
       <VBox>
-         <ImageView fx:id="contactImageView" fitHeight="254.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="contactImageView" fitHeight="254.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin></ImageView>
          <Label fx:id="name" text="Name">
             <font>
                <Font size="20.0" />
