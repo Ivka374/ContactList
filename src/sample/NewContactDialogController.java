@@ -38,6 +38,7 @@ public class NewContactDialogController {
             if (!name.matches("\\p{L}+\\s\\p{L}+") || !number.matches("\\d+")) {
                 throw new Exception();
             }
+            if (descriptionInputField.getText().isEmpty() || numberInputField.getText().isEmpty())throw new IOException();
 
             Contact newContact =
                 new Contact(name, numberInputField.getText(), descriptionInputField.getText());
