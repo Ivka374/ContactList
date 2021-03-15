@@ -9,27 +9,19 @@
 	<image>defaultContactImage.jpg</image>
 </contact>
 <contact>
-	<first_name>Дияна</first_name>
-	<last_name>кирилица</last_name>
-	<phone_number>0884 222 444</phone_number>
-	<notes>иска да й се обаждаш</notes>
-	<is_favourite>false</is_favourite>
-	<image>image-5326071731857291355-clipj.png</image>
-</contact>
-<contact>
-	<first_name>Troe</first_name>
-	<last_name>Lindsy</last_name>
-	<phone_number>020302332</phone_number>
-	<notes>sth</notes>
-	<is_favourite>false</is_favourite>
-	<image>image-7440458698614626436-clipj.png</image>
-</contact>
-<contact>
 	<first_name>Lily</first_name>
 	<last_name>Padson</last_name>
 	<phone_number>7454754645</phone_number>
 	<notes>Elegant like a water lily</notes>
 	<is_favourite>false</is_favourite>
 	<image>image-11930179964887001919-clipj.png</image>
+</contact>
+<contact>
+	<first_name>Troy</first_name>
+	<last_name>Willson</last_name>
+	<phone_number>032135461321</phone_number>
+	<notes>will you get deleted now</notes>
+	<is_favourite>false</is_favourite>
+	<image>defaultContactImage.jpg</image>
 </contact>
 </contacts>

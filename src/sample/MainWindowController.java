@@ -141,8 +141,10 @@ public class MainWindowController {
             if(result.isEmpty() || result.get() != ButtonType.OK){
                 return;
             }
-            ContactData.getInstance().removeContact(item);
             controller.handleFinishingCreation();
+            if (controller.handleFinishingCreation() != null) {
+                ContactData.getInstance().removeContact(item);
+            }
 
         }catch (IOException e) {
             System.out.println("Could not load the dialog");
